@@ -6,6 +6,7 @@ import { test, expect } from '@playwright/test';
     { username: "123456789012345678901", errorMessage: "Username is too long (maximum is 20 characters)", isErrorDisplayed: true }
 ].forEach(({username, errorMessage, isErrorDisplayed}) => {
   test(`Error message test: ${username}`, async ({ page }) => {
+  test.skip(!!process.env.CI, 'Skip external URL test in CI environment');
   await page.goto('https://conduit.bondaracademy.com/');
   await page.getByRole('link', { name: 'Sign Up' }).click();
   await page.getByRole('textbox', { name: 'Username' }).fill(username);
